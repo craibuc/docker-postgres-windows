@@ -2,12 +2,18 @@ Properties {
     $APP_NAME='windows-postgres'
     # currently v11
     $INSTALLER_URI='https://sbp.enterprisedb.com/getfile.jsp?fileid=1258247'
+    $POSTGRES_VERSION=11
+    $POSTGRES_USER='postgres'
+    $POSTGRES_PASSWORD='postgres'
 }
 
 Task Build {
 	Write-Host 'Building image...'
     docker build `
         --build-arg "INSTALLER_URI=$INSTALLER_URI" `
+        --build-arg "POSTGRES_VERSION=$POSTGRES_VERSION" `
+        --build-arg "POSTGRES_USER=$POSTGRES_USER" `
+        --build-arg "POSTGRES_PASSWORD=$POSTGRES_PASSWORD" `
         --tag "ghcr.io/$($env:GITHUB_ACCOUNT)/$APP_NAME" `
         --tag "$APP_NAME`:latest" `
         .
